@@ -10,6 +10,6 @@ Proprietary font, available at various font distributors.
 
 ## Helvetica
 
-Proprietary font, available at various font distributors (also ship with Mac OS).
+Proprietary font, available at various font distributors (also ships with Mac OS).
 
 <img src="./img/helvetica.jpg" alt="Helvetics font example" style="width:600px" />
