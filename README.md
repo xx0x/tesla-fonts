@@ -18,4 +18,7 @@ Proprietary font, available at various font distributors (also ships with Mac OS
 
 Fan-made font based on Tesla Eltos catalog documentation handwriting. IN PROGRESS!
 
+Download: <a href="./eltos-schema-cursiva/font/EltosSchemaCursiva-Regular.otf">EltosSchemaCursiva-Regular.otf</a>  
+Licensed under the [SIL Open Font License 1.1](./eltos-schema-cursiva/font/OFL.txt).
+
 <img src="./img/eltos-schema-cursiva.jpg" alt="Eltos Schema Cursiva example" style="width:400px" />

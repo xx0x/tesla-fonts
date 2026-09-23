@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eltos Schema Cursiva</title>
+<style>
+  @font-face {
+    font-family: "Eltos Schema Cursiva";
+    src: url("../font/EltosSchemaCursiva-Regular.woff") format("woff");
+    font-display: block;
+  }
+
+  :root {
+    --bg: #f6f5f1;
+    --surface: #ffffff;
+    --text: #1c1c1a;
+    --muted: #75736c;
+    --border: #dddad2;
+    --accent: #b3261e;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #181816;
+      --surface: #222220;
+      --text: #ecebe6;
+      --muted: #9a988f;
+      --border: #3a3935;
+      --accent: #f07167;
+    }
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 15px/1.5 "Helvetica", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  main { max-width: 1100px; margin: 0 auto; padding: 32px 16px 64px; }
+
+  h1 {
+    font-family: "Eltos Schema Cursiva", sans-serif;
+    font-weight: normal;
+    font-size: 56px;
+    line-height: 1.35;
+    margin: 0 0 4px;
+  }
+  .subtitle { color: var(--muted); margin: 0 0 40px; }
+  .subtitle a { color: inherit; }
+  h2 {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 48px 0 12px;
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .controls input[type=range] { flex: 0 1 320px; accent-color: var(--accent); }
+  .controls output { font-variant-numeric: tabular-nums; min-width: 4ch; }
+
+  textarea {
+    display: block;
+    width: 100%;
+    min-height: 240px;
+    padding: 20px 24px;
+    resize: vertical;
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: "Eltos Schema Cursiva", sans-serif;
+    font-size: 64px;
+    line-height: 1.35;
+  }
+  textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+
+  .glyphs {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  .glyph {
+    margin: 0 -1px -1px 0;
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    padding: 8px 6px 6px;
+    text-align: center;
+  }
+  .glyph .char {
+    font-family: "Eltos Schema Cursiva", sans-serif;
+    font-size: 48px;
+    line-height: 1.5;
+    height: 80px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 8px;
+  }
+  .glyph .name { font-size: 12px; overflow-wrap: anywhere; }
+  .glyph .code { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Eltos Schema Cursiva</h1>
+  <p class="subtitle">Based on the handwriting in Tesla Eltos catalog documentation. <span id="build"></span>
+    Licensed under the <a href="../font/OFL.txt">SIL Open Font License 1.1</a>.</p>
+
+  <h2>Playground</h2>
+  <div class="controls">
+    <label for="size">Font size</label>
+    <input id="size" type="range" min="12" max="200" value="64">
+    <output id="size-value" for="size">64 px</output>
+  </div>
+  <textarea id="playground" spellcheck="false">Příliš žluťoučký kůň úpěl ďábelské ódy.</textarea>
+
+  <div id="glyph-sections"></div>
+</main>
+
+<script src="glyphs.js"></script>
+<script>
+  document.getElementById("build").textContent = `Build ${window.FONT_BUILD}.`;
+
+  const size = document.getElementById("size");
+  const sizeValue = document.getElementById("size-value");
+  const playground = document.getElementById("playground");
+
+  function applySize() {
+    playground.style.fontSize = size.value + "px";
+    sizeValue.textContent = size.value + " px";
+  }
+  size.addEventListener("input", applySize);
+  applySize();
+
+  const sections = [
+    ["Uppercase", /\p{Lu}/u],
+    ["Lowercase", /\p{Ll}/u],
+    ["Digits", /\p{Nd}/u],
+    ["Punctuation & symbols", /./u],
+  ];
+  const container = document.getElementById("glyph-sections");
+  const remaining = [...window.GLYPHS];
+
+  for (const [title, pattern] of sections) {
+    const glyphs = remaining.filter(g => pattern.test(g.char));
+    if (!glyphs.length) continue;
+    glyphs.forEach(g => remaining.splice(remaining.indexOf(g), 1));
+
+    const heading = document.createElement("h2");
+    heading.textContent = `${title} (${glyphs.length})`;
+    const grid = document.createElement("div");
+    grid.className = "glyphs";
+    for (const g of glyphs) {
+      const cell = document.createElement("div");
+      cell.className = "glyph";
+      cell.title = `${g.name} · ${g.code} · width ${g.width}`;
+      cell.innerHTML = `<div class="char"></div><div class="name"></div><div class="code"></div>`;
+      cell.querySelector(".char").textContent = g.char;
+      cell.querySelector(".name").textContent = g.name;
+      cell.querySelector(".code").textContent = g.code;
+      grid.appendChild(cell);
+    }
+    container.append(heading, grid);
+  }
+</script>
+</body>
+</html>

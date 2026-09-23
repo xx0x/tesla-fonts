@@ -1,0 +1,5 @@
+# Side bearing adjustments, applied on top of the default (SB in build.py).
+# GLYPH  LEFT  RIGHT   (font units, + = more space, - = less)
+# Accented letters inherit their base letter's row unless listed themselves.
+M  0  25
+U  0  25
