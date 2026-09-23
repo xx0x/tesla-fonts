@@ -13,3 +13,9 @@ Proprietary font, available at various font distributors.
 Proprietary font, available at various font distributors (also ships with Mac OS).
 
 <img src="./img/helvetica.jpg" alt="Helvetics font example" style="width:600px" />
+
+## Eltos Schema Cursiva
+
+Fan-made font based on Tesla Eltos catalog documentation handwriting. IN PROGRESS!
+
+<img src="./img/eltos-schema-cursiva.jpg" alt="Eltos Schema Cursiva example" style="width:400px" />
