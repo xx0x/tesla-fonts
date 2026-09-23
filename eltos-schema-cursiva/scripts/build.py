@@ -23,9 +23,9 @@ FONT_DIR = os.path.join(ROOT, "font")
 FONT_BASENAME = "EltosSchemaCursiva-Regular"
 PREVIEW_GLYPHS = os.path.join(ROOT, "project", "glyphs.js")
 
-SB = 50           # default side bearing (font units, em = 1000)
+SB = 55           # default side bearing (font units, em = 1000)
 SLANT = 0.5       # tan of the lettering slant (~27 deg), spacing is measured upright
-SPACE_WIDTH = 300
+SPACE_WIDTH = 400
 VERSION = "1.000"
 BUILD = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
 

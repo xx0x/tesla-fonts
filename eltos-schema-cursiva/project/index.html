@@ -69,16 +69,17 @@
   textarea {
     display: block;
     width: 100%;
-    min-height: 240px;
+    min-height: 6lh;
     padding: 20px 24px;
-    resize: vertical;
+    resize: none;
     background: var(--surface);
     color: var(--text);
     border: 1px solid var(--border);
     border-radius: 8px;
     font-family: "Eltos Schema Cursiva", sans-serif;
-    font-size: 64px;
+    font-size: 20px;
     line-height: 1.35;
+    field-sizing: content; 
   }
   textarea:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
 
@@ -120,8 +121,8 @@
   <h2>Playground</h2>
   <div class="controls">
     <label for="size">Font size</label>
-    <input id="size" type="range" min="12" max="200" value="64">
-    <output id="size-value" for="size">64 px</output>
+    <input id="size" type="range" min="10" max="100" value="20">
+    <output id="size-value" for="size">20 px</output>
   </div>
   <textarea id="playground" spellcheck="false">Příliš žluťoučký kůň úpěl ďábelské ódy.</textarea>
 
